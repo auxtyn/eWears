@@ -1,11 +1,11 @@
 import {
   GoogleAuthProvider,
-  getAuth,
-  onAuthStateChanged,
+  // getAuth,
+  // onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
@@ -46,7 +46,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        // const user = userCredential.user;
         setIsLoading(true);
         toast.success("successfully logged in");
         navigate("/");

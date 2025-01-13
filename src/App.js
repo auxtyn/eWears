@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 // pages 
 import { Home, Contact } from './pages';
 import { Login, Register, Reset } from './pages';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // components 

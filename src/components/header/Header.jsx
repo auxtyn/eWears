@@ -16,7 +16,7 @@ const Header = () => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user.uid;
+        // const uid = user.uid;
         setuserName(user.displayName);
       } else {
         // User is signed out
