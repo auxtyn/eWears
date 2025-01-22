@@ -23,6 +23,10 @@ const Header = () => {
     });
   }, []);
 
+  // useEffect(()=>{
+    
+  // }, []);
+
   const signout = () => {
     signOut(auth)
       .then(() => {
