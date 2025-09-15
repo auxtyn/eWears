@@ -6,8 +6,11 @@ import { Login, Register, Reset } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 // components
 import { Header, Footer } from "./components";
+// import PaystackTest from "./components/PaystackTest";
+import Donate from "./components/Donate";
 
 const App = () => {
   return (
@@ -23,6 +26,8 @@ const App = () => {
           <Route path="/reset" element={<Reset />} />
         </Routes>
         <Footer />
+        {/* <PaystackTest/> */}
+        <Donate />
       </div>
     </div>
   );

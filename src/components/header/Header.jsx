@@ -6,11 +6,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { SET_ACTIVE_USER } from "../../redux/slice/authSlice";
+import AdminOnlyRoute from "../AdminOnlyRoute/AdminOnlyRoute";
 
 const Header = () => {
   const navigate = useNavigate();
 
   const [userName, setuserName] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const auth = getAuth();
@@ -18,14 +23,20 @@ const Header = () => {
       if (user) {
         // const uid = user.uid;
         setuserName(user.displayName);
+
+        console.log(user);
+
+        dispatch(
+          SET_ACTIVE_USER({
+            email: user.email,
+            userName: user.displayName,
+            userID: user.uid,
+          })
+        );
       } else {
       }
     });
-  }, []);
-
-  // useEffect(()=>{
-    
-  // }, []);
+  }, [dispatch]);
 
   const signout = () => {
     signOut(auth)
@@ -50,6 +61,12 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
+              <Link className="text-white navigation nav-link">
+                <AdminOnlyRoute>
+
+                  
+                </AdminOnlyRoute>
+              </Link>
               <Link
                 to={userName ? "/" : "/Login"}
                 className="text-white navigation nav-link"
