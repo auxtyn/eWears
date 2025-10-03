@@ -17,6 +17,7 @@ const App = () => {
     <div>
       <ToastContainer />
       <div className="text-center">
+        
         <Header />
         <Routes>
           <Route path="/" exact element={<Home />} />

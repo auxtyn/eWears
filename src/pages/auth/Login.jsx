@@ -19,7 +19,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-
   const googleSignIN = () => {
     const provider = new GoogleAuthProvider();
     // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
@@ -107,12 +106,12 @@ const Login = () => {
                 <span className="text-danger"> Register</span>
               </small>
             </Link>
-          <button
-            onClick={googleSignIN}
-            className="btn btn-danger w-100 form-control"
-          >
-            <small>Login with Google</small>
-          </button >
+            <button
+              onClick={googleSignIN}
+              className="btn btn-danger w-100 form-control"
+            >
+              <small>Login with Google</small>
+            </button>
           </form>
           <small className="text-white">-- Or --</small>
         </div>

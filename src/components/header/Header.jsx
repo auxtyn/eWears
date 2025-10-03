@@ -52,6 +52,9 @@ const Header = () => {
 
   return (
     <>
+      <div className="gif-img">
+        <img src="https://i.ibb.co/XxRhZSm2/BD-top-strip.gif" alt="gif" />
+      </div>
       <Navbar collapseOnSelect expand="lg" className="bg-dark py-3">
         <Container>
           <Navbar.Brand href="/" className="text-white">
@@ -62,10 +65,7 @@ const Header = () => {
             <Nav className="me-auto"></Nav>
             <Nav>
               <Link className="text-white navigation nav-link">
-                <AdminOnlyRoute>
-
-                  
-                </AdminOnlyRoute>
+                <AdminOnlyRoute></AdminOnlyRoute>
               </Link>
               <Link
                 to={userName ? "/" : "/Login"}
@@ -73,9 +73,6 @@ const Header = () => {
               >
                 {userName ? userName : "Login"}
               </Link>
-              {/* <Link to="/" className="text-white navigation nav-link">
-                {userName}
-              </Link>{" "} */}
               <Link href="#deets" className="text-white navigation nav-link">
                 My orders
               </Link>

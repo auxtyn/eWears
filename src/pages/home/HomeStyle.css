@@ -3,5 +3,9 @@
 } */
 
 .backdrop{
-    background-image: url('https://i.ibb.co/XrGPpZz5/aotm-slider.gif');
+    /* background-image: url('https://i.ibb.co/XrGPpZz5/aotm-slider.gif'); */
+    background-color: orange;
+}
+.gif-img{
+    margin-left: -110px;
 }
