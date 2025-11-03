@@ -1,36 +1,56 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faBox, faPlus, faShoppingCart, faSignOutAlt, faStore } from '@fortawesome/free-solid-svg-icons';
 
-const navbar = () => {
+const Navbar = () => {
+  const navItems = [
+    { to: "/admin/home", icon: faTachometerAlt, label: "Dashboard" },
+    { to: "/admin/view-products", icon: faBox, label: "All Products" },
+    { to: "/admin/add-products", icon: faPlus, label: "Add Products" },
+    { to: "/admin/orders", icon: faShoppingCart, label: "Orders" },
+  ];
+
   return (
-    <section className="container">
-      <div>
-        <div className="bg-warning">
-          <h4 className=" text-white">erkrvnun</h4>
-          <h4 className=" text-white">erkrvnun</h4>
-          <h4 className=" text-white">erkrvnun</h4>
+    <div className="sidebar bg-gradient-primary text-white min-vh-100 p-4 shadow-lg" style={{ width: '280px' }}>
+      <div className="text-center mb-4">
+        <div className="bg-white bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px' }}>
+          <FontAwesomeIcon icon={faStore} size="2x" className="text-white" />
         </div>
-        <aside>
-          <ul className="p-0">
-            <li className="border border-warning p-1 text-white">
-              <NavLink to="/admin">Dashboard</NavLink>
-            </li>
-            <li className="border border-warning p-1 text-white">
-              <NavLink to="/admin">Home</NavLink>
-            </li>
-            <li className="border border-warning p-1 text-white">
-              <NavLink to="/admin/view-products">All products</NavLink>
-            </li>{" "}
-            <li className="border border-warning p-1 text-white">
-              <NavLink to="/admin/add-products">Add products</NavLink>
-            </li>{" "}
-            <li className="border border-warning p-1 text-white">
-              <NavLink to="/admin/orders">Orders</NavLink>
-            </li>
-          </ul>
-        </aside>
+        <h5 className="text-white fw-bold mb-0">E-Commerce Admin</h5>
+        <small className="text-white-50">Management Panel</small>
       </div>
-    </section>
+
+      <nav>
+        <ul className="list-unstyled mb-4">
+          {navItems.map((item, index) => (
+            <li className="mb-2" key={index}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  `d-flex align-items-center text-decoration-none px-3 py-3 rounded-3 transition-all ${isActive ? 'bg-white text-primary fw-bold shadow-sm' : 'text-white hover-bg-white-10'}`
+                }
+                style={{
+                  transition: 'all 0.3s ease',
+                  borderRadius: '10px'
+                }}
+              >
+                <FontAwesomeIcon icon={item.icon} className="me-3" style={{ width: '20px' }} />
+                <span className="fw-medium">{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        <div className="border-top border-white-50 pt-3">
+          <button className="btn btn-outline-light w-100 rounded-pill fw-medium">
+            <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
+            Logout
+          </button>
+        </div>
+      </nav>
+    </div>
   );
 };
 
-export default navbar;
+export default Navbar;
