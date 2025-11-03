@@ -5,8 +5,12 @@ html {
   box-sizing: border-box;
 }
 .warning,
-.text-warning {
+.text-warning,
+.responsive-navbar-nav {
   color: #ff7d02 !important;
+}
+.navbar-toggler  {
+  background-color: #ff7d02 !important;
 }
 a {
   text-decoration: none;

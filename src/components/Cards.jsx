@@ -21,8 +21,6 @@ const Cards = () => {
           <p class="card-text">Somfh content.</p>
         </div>
       </div>
-      
-     
     </div>
   );
 };

@@ -5,6 +5,10 @@ import "../home/HomeStyle.css";
 import Carousel from "../../components/Carousel";
 import Cards from "../../components/Cards";
 
+// import { AdminOnlyLink } from "../../components/AdminOnlyRoute/AdminOnlyRoute";
+
+
+
 const Home = () => {
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
@@ -26,8 +30,6 @@ const Home = () => {
 
   return (
     <>
-      {/* <p>Home</p> */}
-
       <div className="backdrop pt-3">
         <div className="container">
           <div className="row">
@@ -41,10 +43,9 @@ const Home = () => {
               <Cards />
             </div>
           </div>
-         
         </div>
       </div>
-      {loading && <Loader />}
+           {loading && <Loader />}
       <section className="container w-50">
         <form onSubmit={subm}>
           <input

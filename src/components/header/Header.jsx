@@ -6,12 +6,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { SET_ACTIVE_USER } from "../../redux/slice/authSlice";
-import AdminOnlyRoute from "../AdminOnlyRoute/AdminOnlyRoute";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  REMOVE_ACTIVE_USER,
+  selectUserName,
+  SET_ACTIVE_USER,
+} from "../../redux/slice/authSlice";
+import AdminOnlyRoute, {
+  AdminOnlyLink,
+} from "../AdminOnlyRoute/AdminOnlyRoute";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const name = useSelector(selectUserName);
+  console.log(name);
 
   const [userName, setuserName] = useState("");
 
@@ -22,21 +31,26 @@ const Header = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // const uid = user.uid;
-        setuserName(user.displayName);
-
-        console.log(user);
-
+        if (user.displayName === null) {
+          const u1 = user.email.substring(0, user.email.indexOf("@"));
+          const name = u1.charAt(0).toUpperCase() + u1.slice(1);
+          setuserName(name);
+        } else {
+          setuserName(user.userName);
+        }
         dispatch(
           SET_ACTIVE_USER({
             email: user.email,
-            userName: user.displayName,
+            userName: user.userName,
             userID: user.uid,
           })
         );
       } else {
+        setuserName("");
+        dispatch(REMOVE_ACTIVE_USER());
       }
     });
-  }, [dispatch]);
+  }, [dispatch, name]);
 
   const signout = () => {
     signOut(auth)
@@ -64,14 +78,19 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
-              <Link className="text-white navigation nav-link">
-                <AdminOnlyRoute></AdminOnlyRoute>
-              </Link>
+              <AdminOnlyLink>
+                <Link
+                  to="admin/home"
+                  className="text-white navigation nav-link"
+                >
+                  Admin
+                </Link>
+              </AdminOnlyLink>
               <Link
                 to={userName ? "/" : "/Login"}
-                className="text-white navigation nav-link"
+                className="text-warning navigation nav-link"
               >
-                {userName ? userName : "Login"}
+                {userName ? `Hi, ${userName}` : "Login"}
               </Link>
               <Link href="#deets" className="text-white navigation nav-link">
                 My orders
@@ -79,23 +98,7 @@ const Header = () => {
               <Link href="contact" className="text-white navigation nav-link">
                 Contact us
               </Link>
-              <Link
-                href="cart"
-                className="text-warning navigation nav-link cart"
-              >
-                Cart
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-cart4 mb-2"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
-                </svg>{" "}
-                <span className="span-svg px-1">0</span>
-              </Link>
+
               <div className="text-center form-search ">
                 <form action="">
                   <div className="form-surround ">
@@ -116,19 +119,41 @@ const Header = () => {
                     <div className="input-surround">
                       <input
                         type="text"
-                        placeholder="      search gadgets"
+                        placeholder="                search gadgets"
                         className="form-control text-white"
                       />
                     </div>
-                    {/* <button className="btn btn-outline-danger flex-right">send</button> */}
                   </div>
                 </form>
               </div>
+              {userName && (
+                <a
+                  href="#Home"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signout();
+                  }}
+                  className="text-white navigation nav-link"
+                >
+                  Logout
+                </a>
+              )}
               <Link
-                onClick={signout}
-                className="text-white navigation nav-link"
+                href="cart"
+                className="text-warning navigation nav-link cart"
               >
-                Logout
+                Cart
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-cart4 mb-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+                </svg>{" "}
+                <span className="span-svg px-1">0</span>
               </Link>
               {/* </Nav.Link> */}
             </Nav>

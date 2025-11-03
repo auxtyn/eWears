@@ -12,22 +12,22 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     SET_ACTIVE_USER: (state, action) => {
-      console.log(action.payload);
-
-      const {email, uid, userName} = action.payload;
-
-      state.isLoggedIn = true
-      state.email = email
-      state.userID = uid
-      state.userName = userName
-
-      // state.email = action.payload.email;
-      // console.log(actions.payload.SET_ACTIVE_USER.email)
+      const { email, uid, userName } = action.payload;
+      state.isLoggedIn = true;
+      state.email = email;
+      state.userID = uid;
+      state.userName = userName;
+    },
+    REMOVE_ACTIVE_USER: (state, action) => {
+      state.isLoggedIn = false;
+      state.email = null;
+      state.userID = null;
+      state.userName = null;
     },
   },
 });
 
-export const { SET_ACTIVE_USER } = authSlice.actions;
+export const { SET_ACTIVE_USER, REMOVE_ACTIVE_USER } = authSlice.actions;
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectUserName = (state) => state.auth.userName;
 export const selectEmail = (state) => state.auth.email;

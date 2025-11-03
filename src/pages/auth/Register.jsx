@@ -9,6 +9,7 @@ import Loader from "../../components/loader/loader";
 const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +40,6 @@ const Register = () => {
   };
   return (
     <div>
-
       {isLoading && <Loader />}
       <div className="container">
         <h4 className="text-warning mt-3">Register</h4>
@@ -59,6 +59,16 @@ const Register = () => {
               className="form-control w-100 text-white"
               type="email"
               placeholder="example@email.com"
+            />
+
+            <input
+              required
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              label="erjvebk"
+              className="form-control w-100 text-white"
+              type="text"
+              placeholder="username"
             />
             {/* <br /> */}
             <input
